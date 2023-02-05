@@ -1,9 +1,7 @@
 function myFunction(a, b) {
-  try {
-    console.log('teste ');
-  } catch (error) {
-    throw error;
-  }
+  var c = JSON.parse(a);
+  var d = c + JSON.parse(b);
+  return d;
 }
 
 export default myFunction;
