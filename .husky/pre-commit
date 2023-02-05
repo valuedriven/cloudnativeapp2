@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx eslint . --fix
+#npx eslint . --fix
 
-#cd frontend && npx eslint . --fix && cd ..
+cd frontend && npx eslint . --fix && cd ..
