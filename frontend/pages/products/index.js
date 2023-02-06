@@ -1,5 +1,4 @@
 import Button from '@mui/material/Button';
-import List from '@mui/material/List';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
@@ -8,7 +7,7 @@ import { useEffect, useState } from 'react';
 import PageContent from '../../components/pagetemplate/PageContent';
 import PageContentLabels from '../../components/pagetemplate/PageContentLabels';
 import PageHeader from '../../components/pagetemplate/PageHeader';
-import { getData } from '../../middlewares/data';
+import { deleteData, getData } from '../../middlewares/data';
 
 const pageLabel = 'Products';
 
@@ -49,7 +48,12 @@ export default function Products() {
   };
 
   const deleteProduct = async (id) => {
-    alert(`deleteProduct(): ${id}`);
+    try {
+      await deleteData('products', id);
+      setProducts(products.filter((product) => product.id !== id));
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -57,7 +61,7 @@ export default function Products() {
   }, []);
 
   return (
-    <List>
+    <>
       <PageHeader pageLabel={pageLabel}>
         <PageActions createProduct={createProduct} />
       </PageHeader>
@@ -69,7 +73,7 @@ export default function Products() {
           deleteProduct={deleteProduct}
         />
       </PageContent>
-    </List>
+    </>
   );
 }
 

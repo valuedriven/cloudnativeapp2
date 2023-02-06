@@ -4,6 +4,7 @@ const server = `http://${process.env.HOST}:${process.env.PORT}`;
 
 axios.defaults.baseURL = server;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.timeout = 2500;
 
 export async function getData(resource) {
   try {

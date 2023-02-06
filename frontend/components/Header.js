@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 
 export default function Header({ menuItems }) {
   return (
-    <div>
+    <>
       <Head>
         <title>Cloud Native App</title>
         <meta name="description" content="Example of Cloud Native App" />
@@ -32,6 +32,6 @@ export default function Header({ menuItems }) {
           ))}
         </Toolbar>
       </AppBar>
-    </div>
+    </>
   );
 }

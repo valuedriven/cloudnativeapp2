@@ -9,6 +9,10 @@ import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 
+import { getData, postData, putData } from '../../middlewares/data';
+
+import { useEffect } from 'react';
+
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
@@ -21,6 +25,7 @@ export default function Product() {
   const {
     control,
     handleSubmit,
+    setValue,
     watch,
     formState: { errors },
   } = useForm();
@@ -32,12 +37,11 @@ export default function Product() {
     const count = watch('count');
     const rating = watch('rating');
     const body = { name, price, category, count, rating };
-    console.log(body);
     try {
       if (id === '-1') {
-        alert('insert new product!');
+        await postData('products', body);
       } else {
-        alert('update existing product!');
+        await putData('products', id, body);
       }
       router.back();
     } catch (error) {
@@ -45,85 +49,101 @@ export default function Product() {
     }
   };
 
+  useEffect(() => {
+    if (typeof id !== 'undefined' && id !== '-1') {
+      const fetchData = async () => {
+        try {
+          const data = await getData(`products/${id}`);
+          setValue('name', data.name);
+          setValue('price', data.price);
+          setValue('category', data.category);
+          setValue('count', data.count);
+          setValue('rating', data.rating);
+        } catch (error) {
+          console.error(error.message);
+        }
+      };
+      fetchData();
+    }
+  }, [id, setValue]);
+
   return (
-    <List>
+    <>
       <PageHeader pageLabel={pageLabel} />
       <PageContent>
-        <ListItem>
-          <Grid item md={12} xs={12}>
-            <Card>
-              <form onSubmit={handleSubmit(onSubmitForm)}>
-                <List>
-                  <ListItem>
-                    <ControllerTextField
-                      name="name"
-                      label="Name"
-                      control={control}
-                      errors={errors.name}
-                      rules={{ required: true }}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ControllerTextField
-                      name="price"
-                      label="Price"
-                      control={control}
-                      errors={errors.price}
-                      rules={{ required: true }}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ControllerTextField
-                      name="category"
-                      label="Category"
-                      control={control}
-                      errors={errors.category}
-                      rules={{ required: true }}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ControllerTextField
-                      name="count"
-                      label="Count"
-                      control={control}
-                      errors={errors.count}
-                      rules={{ required: true }}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ControllerTextField
-                      name="rating"
-                      label="Rating"
-                      control={control}
-                      errors={errors.rating}
-                      rules={{ required: true }}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <Button
-                      variant="contained"
-                      type="submit"
-                      fullWidth
-                      color="primary"
-                    >
-                      Save
-                    </Button>
-                    <Button
-                      variant="contained"
-                      type="submit"
-                      fullWidth
-                      color="primary"
-                      href="/products/"
-                    >
-                      Cancel
-                    </Button>
-                  </ListItem>
-                </List>
-              </form>
-            </Card>
-          </Grid>
-        </ListItem>
+        <Grid item md={12} xs={12}>
+          <Card>
+            <form onSubmit={handleSubmit(onSubmitForm)}>
+              <List>
+                <ListItem>
+                  <ControllerTextField
+                    name="name"
+                    label="Name"
+                    control={control}
+                    errors={errors.name}
+                    rules={{ required: true }}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ControllerTextField
+                    name="price"
+                    label="Price"
+                    control={control}
+                    errors={errors.price}
+                    rules={{ required: true }}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ControllerTextField
+                    name="category"
+                    label="Category"
+                    control={control}
+                    errors={errors.category}
+                    rules={{ required: true }}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ControllerTextField
+                    name="count"
+                    label="Count"
+                    control={control}
+                    errors={errors.count}
+                    rules={{ required: true }}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ControllerTextField
+                    name="rating"
+                    label="Rating"
+                    control={control}
+                    errors={errors.rating}
+                    rules={{ required: true }}
+                  />
+                </ListItem>
+                <ListItem>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    fullWidth
+                    color="primary"
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    fullWidth
+                    color="primary"
+                    href="/products/"
+                  >
+                    Cancel
+                  </Button>
+                </ListItem>
+              </List>
+            </form>
+          </Card>
+        </Grid>
       </PageContent>
-    </List>
+    </>
   );
 }
