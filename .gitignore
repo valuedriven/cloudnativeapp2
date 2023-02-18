@@ -1,3 +1,5 @@
 node_modules
 coverage
 backend/cloudnativedb-tes.db
+backend/.env.development
+backend/cloudnativedb-dev.db
