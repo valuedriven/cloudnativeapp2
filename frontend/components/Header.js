@@ -26,7 +26,7 @@ export default function Header({ menuItems }) {
             Cloud Native App
           </Typography>
           {menuItems.map(({ href, title }) => (
-            <NextLink key={title} href={href}>
+            <NextLink key={title} href={href} passHref>
               <Button color="inherit">{title}</Button>
             </NextLink>
           ))}

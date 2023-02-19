@@ -1,20 +1,12 @@
-import List from '@mui/material/List';
+import { Button, Card, Grid, List, ListItem } from '@mui/material';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { ControllerTextField } from '../../components/ControllerTextField';
 import PageContent from '../../components/pagetemplate/PageContent';
 import PageHeader from '../../components/pagetemplate/PageHeader';
-
-import { ControllerTextField } from '../../components/ControllerTextField';
-
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import Grid from '@mui/material/Grid';
-import ListItem from '@mui/material/ListItem';
-
 import { getData, postData, putData } from '../../middlewares/data';
-
-import { useEffect } from 'react';
-
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
 
 const pageLabel = 'Edit Product';
 
@@ -25,8 +17,8 @@ export default function Product() {
   const {
     control,
     handleSubmit,
-    setValue,
     watch,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -129,15 +121,16 @@ export default function Product() {
                   >
                     Save
                   </Button>
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    fullWidth
-                    color="primary"
-                    href="/products/"
-                  >
-                    Cancel
-                  </Button>
+                  <NextLink href="/products/" passHref>
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      fullWidth
+                      color="primary"
+                    >
+                      Cancel
+                    </Button>
+                  </NextLink>
                 </ListItem>
               </List>
             </form>
