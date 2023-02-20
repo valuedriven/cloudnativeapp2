@@ -17,17 +17,17 @@ export default function Product() {
   const {
     control,
     handleSubmit,
-    watch,
+    // watch,
     setValue,
     formState: { errors },
   } = useForm();
 
-  const onSubmitForm = async () => {
-    const name = watch('name');
-    const price = watch('price');
-    const category = watch('category');
-    const count = watch('count');
-    const rating = watch('rating');
+  const onSubmitForm = async (data) => {
+    const name = data.name;
+    const price = data.price;
+    const category = data.category;
+    const count = data.count;
+    const rating = data.rating;
     const body = { name, price, category, count, rating };
     try {
       if (id === '-1') {
@@ -60,83 +60,85 @@ export default function Product() {
   }, [id, setValue]);
 
   return (
-    <>
+    <List>
       <PageHeader pageLabel={pageLabel} />
       <PageContent>
-        <Grid item md={12} xs={12}>
-          <Card>
-            <form onSubmit={handleSubmit(onSubmitForm)}>
-              <List>
-                <ListItem>
-                  <ControllerTextField
-                    name="name"
-                    label="Name"
-                    control={control}
-                    errors={errors.name}
-                    rules={{ required: true }}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ControllerTextField
-                    name="price"
-                    label="Price"
-                    control={control}
-                    errors={errors.price}
-                    rules={{ required: true }}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ControllerTextField
-                    name="category"
-                    label="Category"
-                    control={control}
-                    errors={errors.category}
-                    rules={{ required: true }}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ControllerTextField
-                    name="count"
-                    label="Count"
-                    control={control}
-                    errors={errors.count}
-                    rules={{ required: true }}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ControllerTextField
-                    name="rating"
-                    label="Rating"
-                    control={control}
-                    errors={errors.rating}
-                    rules={{ required: true }}
-                  />
-                </ListItem>
-                <ListItem>
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    fullWidth
-                    color="primary"
-                  >
-                    Save
-                  </Button>
-                  <NextLink href="/products/" passHref>
+        <ListItem>
+          <Grid item md={12} xs={12}>
+            <Card>
+              <form onSubmit={handleSubmit(onSubmitForm)}>
+                <List>
+                  <ListItem>
+                    <ControllerTextField
+                      name="name"
+                      label="Name"
+                      control={control}
+                      errors={errors.name}
+                      rules={{ required: true }}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ControllerTextField
+                      name="price"
+                      label="Price"
+                      control={control}
+                      errors={errors.price}
+                      rules={{ required: true }}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ControllerTextField
+                      name="category"
+                      label="Category"
+                      control={control}
+                      errors={errors.category}
+                      rules={{ required: true }}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ControllerTextField
+                      name="count"
+                      label="Count"
+                      control={control}
+                      errors={errors.count}
+                      rules={{ required: true }}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ControllerTextField
+                      name="rating"
+                      label="Rating"
+                      control={control}
+                      errors={errors.rating}
+                      rules={{ required: true }}
+                    />
+                  </ListItem>
+                  <ListItem>
                     <Button
                       variant="contained"
                       type="submit"
                       fullWidth
                       color="primary"
                     >
-                      Cancel
+                      Save
                     </Button>
-                  </NextLink>
-                </ListItem>
-              </List>
-            </form>
-          </Card>
-        </Grid>
+                    <NextLink href="/products/" passHref>
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        fullWidth
+                        color="primary"
+                      >
+                        Cancel
+                      </Button>
+                    </NextLink>
+                  </ListItem>
+                </List>
+              </form>
+            </Card>
+          </Grid>
+        </ListItem>
       </PageContent>
-    </>
+    </List>
   );
 }

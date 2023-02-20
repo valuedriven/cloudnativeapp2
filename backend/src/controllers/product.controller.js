@@ -10,7 +10,7 @@ exports.get = async (req, res) => {
 
 exports.insert = async (req, res) => {
   try {
-    await Product.create(req);
+    await Product.create(req.body);
     return res.status(200).send('Product inserted successfully');
   } catch (error) {
     return res.status(500).send(error.message);

@@ -1,0 +1,10 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "teste",
+      "database": "${workspaceFolder:cloudnativeapp2}/backend/cloudnativedb-dev.db"
+    }
+  ]
+}

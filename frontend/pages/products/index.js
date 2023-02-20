@@ -1,7 +1,5 @@
-import Button from '@mui/material/Button';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
+import { Button, Table, TableBody, TableCell, TableRow } from '@mui/material';
+import List from '@mui/material/List';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import PageContent from '../../components/pagetemplate/PageContent';
@@ -23,7 +21,6 @@ const itemsLabels = [
 
 export default function Products() {
   const [products, setProducts] = useState([]);
-
   const router = useRouter();
 
   const getProducts = async () => {
@@ -65,19 +62,21 @@ export default function Products() {
   }, []);
 
   return (
-    <>
+    <List>
       <PageHeader pageLabel={pageLabel}>
         <PageActions createProduct={createProduct} />
       </PageHeader>
       <PageContent>
-        <PageContentLabels labels={itemsLabels} />
-        <PageContentItems
-          products={products}
-          editProduct={editProduct}
-          deleteProduct={deleteProduct}
-        />
+        <Table>
+          <PageContentLabels labels={itemsLabels} />
+          <PageContentItems
+            products={products}
+            editProduct={editProduct}
+            deleteProduct={deleteProduct}
+          />
+        </Table>
       </PageContent>
-    </>
+    </List>
   );
 }
 
